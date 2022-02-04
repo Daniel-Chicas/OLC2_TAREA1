@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ANTLRGenerationPreferences">
+    <option name="perGrammarGenerationSettings">
+      <list>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/Gramatica/Gramatica.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\Daniel Chicas\Desktop\PRIMER_SEMESTRE_2022\COMPI2\LABORATORIO\TAREAS_LAB\OLC2_TAREA1\Backend" />
+          <option name="libDir" value="." />
+          <option name="encoding" value="" />
+          <option name="pkg" value="Gramatica" />
+          <option name="language" value="Go" />
+        </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/Gramatica.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\Daniel Chicas\Desktop\PRIMER_SEMESTRE_2022\COMPI2\LABORATORIO\TAREAS_LAB\OLC2_TAREA1\Backend\Gramatica" />
+          <option name="libDir" value="." />
+          <option name="encoding" value="." />
+          <option name="pkg" value="Gramatica" />
+          <option name="language" value="Go" />
+        </PerGrammarGenerationSettings>
+      </list>
+    </option>
+  </component>
+</project>
