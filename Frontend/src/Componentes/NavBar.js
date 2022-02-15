@@ -19,10 +19,10 @@ function NavBarIncio() {
         lastChar = parseInt(lastChar)
         datosPes = localStorage.getItem('datosPes')
         datosP = JSON.parse(datosPes);
-        var entrada = datosP[lastChar];
+        var text = datosP[lastChar];
         try{
-            await axios.post("http://localhost:5000/ejecutar", {
-                entrada
+            await axios.post("http://localhost:3001/Parser", {
+                text
             })
             .then(response=>{
                 var respuesta = "";
@@ -89,9 +89,9 @@ function NavBarIncio() {
         lastChar = parseInt(lastChar)
         var datosPes = localStorage.getItem('datosPes')
         var datosP = JSON.parse(datosPes);
-        var entrada = datosP[lastChar];
-        await axios.post("http://localhost:5000/ast", {
-            entrada
+        var text = datosP[lastChar];
+        await axios.post("http://localhost:3001/ast", {
+            text
         })
         .then(response=>{
             console.log(response)

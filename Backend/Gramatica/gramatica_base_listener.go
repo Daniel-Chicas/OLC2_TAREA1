@@ -26,29 +26,17 @@ func (s *BaseGramaticaListener) EnterIni(ctx *IniContext) {}
 // ExitIni is called when production ini is exited.
 func (s *BaseGramaticaListener) ExitIni(ctx *IniContext) {}
 
-// EnterFuncionMetodo is called when production funcionMetodo is entered.
-func (s *BaseGramaticaListener) EnterFuncionMetodo(ctx *FuncionMetodoContext) {}
+// EnterInstrucciones is called when production instrucciones is entered.
+func (s *BaseGramaticaListener) EnterInstrucciones(ctx *InstruccionesContext) {}
 
-// ExitFuncionMetodo is called when production funcionMetodo is exited.
-func (s *BaseGramaticaListener) ExitFuncionMetodo(ctx *FuncionMetodoContext) {}
-
-// EnterCuerpoFunciones is called when production cuerpoFunciones is entered.
-func (s *BaseGramaticaListener) EnterCuerpoFunciones(ctx *CuerpoFuncionesContext) {}
-
-// ExitCuerpoFunciones is called when production cuerpoFunciones is exited.
-func (s *BaseGramaticaListener) ExitCuerpoFunciones(ctx *CuerpoFuncionesContext) {}
+// ExitInstrucciones is called when production instrucciones is exited.
+func (s *BaseGramaticaListener) ExitInstrucciones(ctx *InstruccionesContext) {}
 
 // EnterDeclaraciones is called when production declaraciones is entered.
 func (s *BaseGramaticaListener) EnterDeclaraciones(ctx *DeclaracionesContext) {}
 
 // ExitDeclaraciones is called when production declaraciones is exited.
 func (s *BaseGramaticaListener) ExitDeclaraciones(ctx *DeclaracionesContext) {}
-
-// EnterListaExpresiones is called when production listaExpresiones is entered.
-func (s *BaseGramaticaListener) EnterListaExpresiones(ctx *ListaExpresionesContext) {}
-
-// ExitListaExpresiones is called when production listaExpresiones is exited.
-func (s *BaseGramaticaListener) ExitListaExpresiones(ctx *ListaExpresionesContext) {}
 
 // EnterSentenceIf is called when production sentenceIf is entered.
 func (s *BaseGramaticaListener) EnterSentenceIf(ctx *SentenceIfContext) {}
@@ -85,6 +73,24 @@ func (s *BaseGramaticaListener) EnterExpresion(ctx *ExpresionContext) {}
 
 // ExitExpresion is called when production expresion is exited.
 func (s *BaseGramaticaListener) ExitExpresion(ctx *ExpresionContext) {}
+
+// EnterLogicas is called when production logicas is entered.
+func (s *BaseGramaticaListener) EnterLogicas(ctx *LogicasContext) {}
+
+// ExitLogicas is called when production logicas is exited.
+func (s *BaseGramaticaListener) ExitLogicas(ctx *LogicasContext) {}
+
+// EnterRelacionales is called when production relacionales is entered.
+func (s *BaseGramaticaListener) EnterRelacionales(ctx *RelacionalesContext) {}
+
+// ExitRelacionales is called when production relacionales is exited.
+func (s *BaseGramaticaListener) ExitRelacionales(ctx *RelacionalesContext) {}
+
+// EnterAritmeticas is called when production aritmeticas is entered.
+func (s *BaseGramaticaListener) EnterAritmeticas(ctx *AritmeticasContext) {}
+
+// ExitAritmeticas is called when production aritmeticas is exited.
+func (s *BaseGramaticaListener) ExitAritmeticas(ctx *AritmeticasContext) {}
 
 // EnterPrimitivos is called when production primitivos is entered.
 func (s *BaseGramaticaListener) EnterPrimitivos(ctx *PrimitivosContext) {}

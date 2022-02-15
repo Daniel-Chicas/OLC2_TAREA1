@@ -10,17 +10,11 @@ type GramaticaListener interface {
 	// EnterIni is called when entering the ini production.
 	EnterIni(c *IniContext)
 
-	// EnterFuncionMetodo is called when entering the funcionMetodo production.
-	EnterFuncionMetodo(c *FuncionMetodoContext)
-
-	// EnterCuerpoFunciones is called when entering the cuerpoFunciones production.
-	EnterCuerpoFunciones(c *CuerpoFuncionesContext)
+	// EnterInstrucciones is called when entering the instrucciones production.
+	EnterInstrucciones(c *InstruccionesContext)
 
 	// EnterDeclaraciones is called when entering the declaraciones production.
 	EnterDeclaraciones(c *DeclaracionesContext)
-
-	// EnterListaExpresiones is called when entering the listaExpresiones production.
-	EnterListaExpresiones(c *ListaExpresionesContext)
 
 	// EnterSentenceIf is called when entering the sentenceIf production.
 	EnterSentenceIf(c *SentenceIfContext)
@@ -40,23 +34,26 @@ type GramaticaListener interface {
 	// EnterExpresion is called when entering the expresion production.
 	EnterExpresion(c *ExpresionContext)
 
+	// EnterLogicas is called when entering the logicas production.
+	EnterLogicas(c *LogicasContext)
+
+	// EnterRelacionales is called when entering the relacionales production.
+	EnterRelacionales(c *RelacionalesContext)
+
+	// EnterAritmeticas is called when entering the aritmeticas production.
+	EnterAritmeticas(c *AritmeticasContext)
+
 	// EnterPrimitivos is called when entering the primitivos production.
 	EnterPrimitivos(c *PrimitivosContext)
 
 	// ExitIni is called when exiting the ini production.
 	ExitIni(c *IniContext)
 
-	// ExitFuncionMetodo is called when exiting the funcionMetodo production.
-	ExitFuncionMetodo(c *FuncionMetodoContext)
-
-	// ExitCuerpoFunciones is called when exiting the cuerpoFunciones production.
-	ExitCuerpoFunciones(c *CuerpoFuncionesContext)
+	// ExitInstrucciones is called when exiting the instrucciones production.
+	ExitInstrucciones(c *InstruccionesContext)
 
 	// ExitDeclaraciones is called when exiting the declaraciones production.
 	ExitDeclaraciones(c *DeclaracionesContext)
-
-	// ExitListaExpresiones is called when exiting the listaExpresiones production.
-	ExitListaExpresiones(c *ListaExpresionesContext)
 
 	// ExitSentenceIf is called when exiting the sentenceIf production.
 	ExitSentenceIf(c *SentenceIfContext)
@@ -75,6 +72,15 @@ type GramaticaListener interface {
 
 	// ExitExpresion is called when exiting the expresion production.
 	ExitExpresion(c *ExpresionContext)
+
+	// ExitLogicas is called when exiting the logicas production.
+	ExitLogicas(c *LogicasContext)
+
+	// ExitRelacionales is called when exiting the relacionales production.
+	ExitRelacionales(c *RelacionalesContext)
+
+	// ExitAritmeticas is called when exiting the aritmeticas production.
+	ExitAritmeticas(c *AritmeticasContext)
 
 	// ExitPrimitivos is called when exiting the primitivos production.
 	ExitPrimitivos(c *PrimitivosContext)
