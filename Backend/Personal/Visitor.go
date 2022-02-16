@@ -9,7 +9,7 @@ import (
 
 type TreeShapeListener struct {
 	*parser2.BaseGramaticaListener
-	Cadena string
+	Cadena []string
 }
 
 func NewTreeShapeListener() *TreeShapeListener {
@@ -24,8 +24,9 @@ func (this *TreeShapeListener) ExitIni(ctx *parser2.IniContext) {
 		if r != nil {
 			val := result.GetValue(i).(Interfaces.Instruccion).Ejecutar(entornoGlobal)
 			if val != nil {
-				this.Cadena += fmt.Sprintf("%v", val)
+				this.Cadena = append(this.Cadena, fmt.Sprintf("%v", val.(Entornos.RetornoType).Valor))
 			}
 		}
+
 	}
 }

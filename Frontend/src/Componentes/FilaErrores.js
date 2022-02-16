@@ -4,10 +4,10 @@ function Fila(props) {
     return (
         <>
             <tr key={props.index}>
-                <td>{props.mensaje}</td>
-                <td>{props.tipo}</td>
-                <td>{props.linea}</td>
-                <td>{props.columna}</td>
+                <td>{props.Mensaje}</td>
+                <td>{props.Tipo}</td>
+                <td>{props.Linea}</td>
+                <td>{props.Columna}</td>
             </tr>
         </>
     )

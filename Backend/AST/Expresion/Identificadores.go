@@ -3,11 +3,13 @@ package Expresion
 import "OLC2_TAREA1/AST/Entornos"
 
 type Identificador struct {
-	Id string
+	Linea   int
+	Columna int
+	Id      string
 }
 
-func NuevoIdentificador(identificador string) Identificador {
-	return Identificador{identificador}
+func NuevoIdentificador(Linea int, Columna int, identificador string) Identificador {
+	return Identificador{Linea, Columna, identificador}
 }
 
 func (ide Identificador) ObtenerValor(E Entornos.Entorno) Entornos.RetornoType {

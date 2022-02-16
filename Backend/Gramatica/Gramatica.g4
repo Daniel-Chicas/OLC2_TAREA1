@@ -28,7 +28,6 @@ instrucciones returns [*arrayList.List l]
                                         for _, e := range listInt {
                                             $l.Add(e.GetInstr())
                                         }
-                                    fmt.Printf("tipo %T",localctx.(*InstruccionesContext).GetE())
                                   }
 ;
 
@@ -39,7 +38,7 @@ declaraciones returns [Interfaces.Instruccion instr]
 ;
 
 sentenceIf  returns [Interfaces.Instruccion instr]
-    :IF DPUNTOS PARA expresion PARC CABRE instrucciones CCIER sentenceElse  {$instr = Funcion.NewIf($expresion.p, $instrucciones.l, $sentenceElse.l)}
+    :IF DPUNTOS PARA expresion PARC CABRE instrucciones CCIER sentenceElse  {$instr = Funcion.NewIf($IF.line, localctx.(*SentenceIfContext).Get_IF().GetColumn(), $expresion.p, $instrucciones.l, $sentenceElse.l)}
 ;
 
 sentenceElse returns[*arrayList.List l]
@@ -50,20 +49,20 @@ sentenceElse returns[*arrayList.List l]
 ;
 
 variable returns[Interfaces.Instruccion instr]
-        :DECLARAR identificadores tipo PCOMA                        {$instr = Instruccion.NuevaDeclaracion($identificadores.lista, $tipo.T)}
-        |DECLARAR identificadores tipo IGUAL expresion PCOMA        {$instr = Instruccion.NuevaDeclaracionInicio($identificadores.lista, $tipo.T, $expresion.p)}
-        |identificadores IGUAL expresion PCOMA
+        :DECLARAR identificadores tipo PCOMA                        {$instr = Instruccion.NuevaDeclaracion($DECLARAR.line, localctx.(*VariableContext).Get_DECLARAR().GetColumn(), $identificadores.lista, $tipo.T)}
+        |DECLARAR identificadores tipo IGUAL expresion PCOMA        {$instr = Instruccion.NuevaDeclaracionInicio($IGUAL.line, localctx.(*VariableContext).Get_IGUAL().GetColumn(), $identificadores.lista, $tipo.T, $expresion.p)}
+        |identificadores IGUAL expresion PCOMA                      {$instr = Instruccion.NuevaDeclaracionInicio($IGUAL.line, localctx.(*VariableContext).Get_IGUAL().GetColumn(), $identificadores.lista, Entornos.NULL, $expresion.p)}
 ;
-
+//$ID.line, localctx.(*IdentificadoresContext).Get_ID().GetColumn(),
 identificadores returns[*arrayList.List lista]
         @init{
             $lista = arrayList.New()
         }
             : sub = identificadores COMA ID                         {
-                                                                        $sub.lista.Add(Expresion.NuevoIdentificador($ID.text))
+                                                                        $sub.lista.Add(Expresion.NuevoIdentificador($ID.line, localctx.(*IdentificadoresContext).Get_ID().GetColumn(), $ID.text))
                                                                         $lista = $sub.lista
                                                                     }
-            | ID                                                    {   $lista.Add(Expresion.NuevoIdentificador($ID.text))}
+            | ID                                                    {   $lista.Add(Expresion.NuevoIdentificador($ID.line, localctx.(*IdentificadoresContext).Get_ID().GetColumn(), $ID.text))}
 ;
 
 tipo returns[Entornos.TipoDato T]
@@ -80,24 +79,23 @@ expresion returns[Interfaces.Expresion p]
 ;
 
 logicas returns[Interfaces.Expresion p]
-    : op= NOT  opDe = relacionales                                 {$p = Expresion.NewLogico(nil,$op.text,$opDe.p,false)}
-    | opIz = relacionales op=( AND | OR ) opDe = relacionales      {$p = Expresion.NewLogico($opIz.p,$op.text,$opDe.p,false)}
+    : op= NOT  opDe = relacionales                                 {$p = Expresion.NewLogico($op.line, localctx.(*LogicasContext).GetOp().GetColumn(), nil,$op.text,$opDe.p,false)}
+    | opIz = relacionales op=( AND | OR ) opDe = relacionales      {$p = Expresion.NewLogico($op.line, localctx.(*LogicasContext).GetOp().GetColumn(), $opIz.p,$op.text,$opDe.p,false)}
     | relacionales                                                 {$p = $relacionales.p}
 ;
 
 relacionales returns[Interfaces.Expresion p]
-    : opIz = relacionales op=( MENI | MAYI | MEN | MAY | IGUALI | DIFERENCIA ) opDe = relacionales      {$p = Expresion.NewRelacional($opIz.p,$op.text,$opDe.p,false)}
+    : opIz = relacionales op=( MENI | MAYI | MEN | MAY | IGUALI | DIFERENCIA ) opDe = relacionales      {$p = Expresion.NewRelacional($op.line, localctx.(*RelacionalesContext).GetOp().GetColumn(), $opIz.p,$op.text,$opDe.p,false)}
     | aritmeticas                                                                                       {$p = $aritmeticas.p}
-    | ID                                                                                                {$p = Expresion.NewAcceso($ID.text, $ID.line)}
 ;
 
 aritmeticas returns[Interfaces.Expresion p]
-    : op='-' opDe = aritmeticas                             {$p = Expresion.NewAritmetica(nil,$op.text,$opDe.p,true)}
-    | opIz = aritmeticas op='%' opDe = aritmeticas          {$p = Expresion.NewAritmetica($opIz.p,$op.text,$opDe.p,false)}
-    | opIz = aritmeticas op=('*'|'/') opDe = aritmeticas    {$p = Expresion.NewAritmetica($opIz.p,$op.text,$opDe.p,false)}
-    | opIz = aritmeticas op=('+'|'-') opDe = aritmeticas    {$p = Expresion.NewAritmetica($opIz.p,$op.text,$opDe.p,false)}
-    | primitivos                                            {$p = $primitivos.p}
-    | PARA expresion PARC                                   {$p = $expresion.p}
+    : op='-' opDe = aritmeticas                                 {$p = Expresion.NewAritmetica($op.line, localctx.(*AritmeticasContext).GetOp().GetColumn(),  nil,$op.text,$opDe.p,true)}
+    | opIz = aritmeticas op=MOD opDe = aritmeticas              {$p = Expresion.NewAritmetica($op.line, localctx.(*AritmeticasContext).GetOp().GetColumn(), $opIz.p,$op.text,$opDe.p,false)}
+    | opIz = aritmeticas op=(POR|DIVIDIR) opDe = aritmeticas    {$p = Expresion.NewAritmetica($op.line, localctx.(*AritmeticasContext).GetOp().GetColumn(), $opIz.p,$op.text,$opDe.p,false)}
+    | opIz = aritmeticas op=(MAS|MENOS) opDe = aritmeticas      {$p = Expresion.NewAritmetica($op.line, localctx.(*AritmeticasContext).GetOp().GetColumn(), $opIz.p,$op.text,$opDe.p,false)}
+    | primitivos                                                {$p = $primitivos.p}
+    | PARA expresion PARC                                       {$p = $expresion.p}
 ;
 
 primitivos returns[Interfaces.Expresion p]
@@ -106,25 +104,26 @@ primitivos returns[Interfaces.Expresion p]
                                                                 if err != nil{
                                                                     fmt.Println(err)
                                                                 }
-                                                                $p = Expresion.NewPrimitivo(num, Entornos.INTEGER)
+                                                                $p = Expresion.NewPrimitivo($ENTERO.line, localctx.(*PrimitivosContext).Get_ENTERO().GetColumn(), num, Entornos.INTEGER)
                                                             }
     | DECIMAL                                               {
                                                                 num, err := strconv.ParseFloat($DECIMAL.text, 64)
                                                                 if err != nil{
                                                                     fmt.Println(err)
                                                                 }
-                                                                $p = Expresion.NewPrimitivo(num, Entornos.REAL)
+                                                                $p = Expresion.NewPrimitivo($DECIMAL.line, localctx.(*PrimitivosContext).Get_DECIMAL().GetColumn(), num, Entornos.REAL)
                                                             }
     | TRUE                                                  {
-                                                                $p = Expresion.NewPrimitivo($TRUE.text, Entornos.BOOLEAN)
+                                                                $p = Expresion.NewPrimitivo($TRUE.line, localctx.(*PrimitivosContext).Get_TRUE().GetColumn(), $TRUE.text, Entornos.BOOLEAN)
                                                             }
     | FALSE                                                 {
-                                                                $p = Expresion.NewPrimitivo($FALSE.text, Entornos.BOOLEAN)
+                                                                $p = Expresion.NewPrimitivo($FALSE.line, localctx.(*PrimitivosContext).Get_FALSE().GetColumn(), $FALSE.text, Entornos.BOOLEAN)
                                                             }
     | CADENA                                                {
                                                                 str:= $CADENA.text[1:len($CADENA.text)-1]
-                                                                $p = Expresion.NewPrimitivo(str,Entornos.STRING)
+                                                                $p = Expresion.NewPrimitivo($CADENA.line, localctx.(*PrimitivosContext).Get_CADENA().GetColumn(), str,Entornos.STRING)
                                                             }
+    | ID                                                    {$p = Expresion.NewAcceso($ID.line, localctx.(*PrimitivosContext).Get_ID().GetColumn(), $ID.text)}
 ;
 
 
@@ -219,3 +218,5 @@ COMA                    : ','   ;
 
 // IGNORED TOKENS
 ESPACIOS                       : [ \t\r\n]+    -> skip;
+COMENTARIO_MUL: '(*' (~[/])+ '*)' -> skip;
+COMENTARIO_LIN: '//'(~[\n])+ -> skip;

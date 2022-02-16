@@ -19,10 +19,10 @@ function TablaErrores(props) {
                         {props.data.map((dato, index) => (
                             <Fila
                                 index={index}
-                                mensaje={dato.mensaje}
-                                tipo={dato.tipo}
-                                linea = {dato.linea}
-                                columna = {dato.columna}
+                                Mensaje={dato.Mensaje}
+                                Tipo={dato.Tipo}
+                                Linea = {dato.Linea}
+                                Columna = {dato.Columna}
                             />
                         ))}
                     </tbody>

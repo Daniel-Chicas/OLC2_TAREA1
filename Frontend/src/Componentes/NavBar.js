@@ -6,8 +6,8 @@ import axios from 'axios'
 //window.location.reload();
 
 var realizado = false
-const colores=[ 'green', 'yellow', 'orange', 'teal', 'violet']
-const opciones =[ 'Guardar Archivo', 'Ejecutar', 'Reporte de Errores', 'Árbol AST', 'Reporte de Símbolos']
+const colores=[ 'yellow', 'orange']
+const opciones =['Ejecutar', 'Reporte de Errores']
 
 
 
@@ -26,8 +26,8 @@ function NavBarIncio() {
             })
             .then(response=>{
                 var respuesta = "";
-                for (let i = 0; i < response.data.message.length; i++) {
-                    respuesta += response.data.message[i]+"\n"
+                for (let i = 0; i < response.data.val.length; i++) {
+                    respuesta += response.data.val[i]+"\n"
                 }
                 console.log(respuesta)
                 localStorage.setItem('consola', JSON.stringify([respuesta]))
@@ -76,8 +76,9 @@ function NavBarIncio() {
             realizado = true
         }
         window.location.reload()
+
     }else if (activo === "yellow"){
-        //localStorage.setItem('consola', JSON.stringify(["Bienvenido a mi proyecto de Compiladores 1"]))
+        localStorage.setItem('consola', JSON.stringify(["Bienvenido a mi proyecto de Compiladores 2"]))
         post();
     }else if (activo === "orange"){
         window.location.href = "http://localhost:3000/Errores"

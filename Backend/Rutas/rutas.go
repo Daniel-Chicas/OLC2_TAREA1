@@ -8,4 +8,5 @@ import (
 func RutasCompiladores(router *mux.Router) {
 	router.HandleFunc("/", Controladores.Inicio()).Methods("GET")
 	router.HandleFunc("/Parser", Controladores.Data()).Methods("POST")
+	router.HandleFunc("/Errores", Controladores.ErroresEntrada()).Methods("POST")
 }

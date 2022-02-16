@@ -3,12 +3,13 @@ package Expresion
 import "OLC2_TAREA1/AST/Entornos"
 
 type Acceso struct {
-	Id    string
-	Linea int
+	Linea   int
+	Columna int
+	Id      string
 }
 
-func NewAcceso(id string, line int) Acceso {
-	return Acceso{id, line}
+func NewAcceso(Linea int, Columna int, id string) Acceso {
+	return Acceso{Linea, Columna, id}
 }
 
 func (A Acceso) ObtenerValor(entorno Entornos.Entorno) Entornos.RetornoType {

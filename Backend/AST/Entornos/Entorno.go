@@ -44,16 +44,21 @@ func (E *Entorno) ObtenerSimbolo(identificador string) *Simbolo {
 	return simboloNil
 }
 
-func (E *Entorno) CambiarValor(identificador string, nuevo Simbolo) {
+func (E *Entorno) CambiarValor(identificador string, nuevo *Simbolo) bool {
 	id := strings.ToLower(identificador)
 	for actual := E; actual != nil; actual = actual.Anterior {
-		for key, _ := range actual.Tabla {
+		for key, simboloElement := range actual.Tabla {
 			if key == id {
-				E.Tabla[id] = nuevo
-				return
+				if simboloElement.(*Simbolo).Tipo == nuevo.Tipo {
+					actual.Tabla[id] = nuevo
+					return true
+				} else {
+					return false
+				}
 			}
 		}
 	}
+	return false
 }
 
 //Faltarían las de funciones

@@ -3,8 +3,8 @@ package Personal
 import "github.com/antlr/antlr4/runtime/Go/antlr"
 
 type CustomSyntaxError struct {
-	line, column int
-	msg          string
+	Line, Column int
+	Msg          string
 }
 
 type CustomErrorListener struct {
@@ -14,8 +14,8 @@ type CustomErrorListener struct {
 
 func (c *CustomErrorListener) SyntaxError(recognizer antlr.Recognizer, offendingSymbol interface{}, line, column int, msg string, e antlr.RecognitionException) {
 	c.Errors = append(c.Errors, CustomSyntaxError{
-		line:   line,
-		column: column,
-		msg:    msg,
+		Line:   line,
+		Column: column,
+		Msg:    msg,
 	})
 }
